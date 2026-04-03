@@ -1,1 +1,155 @@
-Level 1 - 5
+OverTheWire Bandit Journey
+
+Goals
+- Improve Linux command line skills
+- Understand file permissions and security
+- Build a strong foundation.
+
+What I'm Learning
+- Bash commands
+- SSH
+- File systems
+- Privilege management
+
+
+
+
+## Bandit Level 1 → Level 2
+
+**Challenge:** The password for the next level is stored in a file called - located in the home directory
+
+**Solution:**
+```bash
+cat ./-
+```
+
+**Explanation:** 
+`cat` command reads files.
+`./` tells the cat command "-" is a file it has to read.
+
+**What I learned:** `cat` helps read what is inside a file without opening it.
+
+**Password:** 263JGJPfgU6LtdEvgfWU1XP5yac29mFx
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 2 → Level 3
+
+**Challenge:** The password for the next level is stored in a file called --spaces in this filename-- located in the home directory
+
+**Solution:**
+```bash
+cat ./"--spaces in this filename--"
+```
+
+**Explanation:** 
+`cat` command reads the file.
+`./` specifys it is reading a file from current directory
+"--spaces in this filename--" quotation marks must be used around the file ame if contains spaces
+
+**What I learned:** You can read a file with any name as it is capsulated in quotation marks
+**Password:** MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 3 → Level 4
+
+**Challenge:** The password for the next level is stored in a hidden file in the inhere directory.y
+
+**Solution:**
+```bash
+cat ./"...Hiding-From-You"
+```
+
+**Explanation:** 
+`cat` command reads the file.
+`./` specifys it is reading a file from current directory
+"...Hiding-From-You" quotation marks must be used around the file ame if contains spaces
+
+**What I learned:** You can read a file with any name as it is capsulated in quotation marks
+**Password:** 2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 4 → Level 5
+
+**Challenge:** The password for the next level is stored in the only human-readable file in the inhere directory. 
+
+**Solution:**
+```bash
+file ./*
+cat ./"...Hiding-From-You"
+```
+
+**Explanation:** 
+
+`file` idetifys the type of file it is
+`./*` tells it to specify the data types of each file
+`cat` command reads the file.
+`./` specifys it is reading a file from current directory
+
+
+**What I learned:** `*` is a wild card that lets you find a human read able file without looking through each file.
+**Password:** 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 5 → Level 6
+
+**Challenge:** The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+- human-readable
+- 1033 bytes in size
+- not executable
+
+**Solution:**
+```bash
+find . -type f -size 1033c
+cat ./maybehere07/.file2
+```
+
+**Explanation:** 
+`find .` tells system to find in the current directory
+`-type f` specifys it is finding a file
+`-size 1033c` specifys the size of file it is looking for
+`cat` command reads the file.
+`./` specifys it is reading a file from current directory
+
+**Bonus**
+You can also confime if the file is :
+`! -executable` filters/ confirms the file is nott executable
+`-exec file {} + | grep text` this command tells the system to execute commands on the files filtered and show ones containing text. It can execute commands on multiple files at once.
+
+This will be the full command with all the filters:
+`find . -type f -size 1033c ! -executable -exec file {} + | grep text`
+
+
+I did not use the full command as I was down to one file just by looking for the file size.
+
+
+**What I learned:** `find` is a powerful comand that filters by multple properties.
+**Password:** HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+
+-------------------------------------------------------------------------------------
+
+--------## Bandit Level 6 → Level 7
+
+**Challenge:** The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+
+**Solution:**
+```bash
+find . -type f -size 1033c
+cat ./maybehere07/.file2
+```
+
+**Explanation:** 
+`find .` tells system to find in the current directory
+`-type f` specifys it is finding a file
+`-size 1033c` specifys the size of file it is looking for
+`cat` command reads the file.
+`./` specifys it is reading a file from current directory
+
+
+**What I learned:** `find` is a powerful comand that filters by multple properties.
+**Password:** HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+
+
