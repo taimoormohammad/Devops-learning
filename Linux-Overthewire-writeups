@@ -131,25 +131,111 @@ I did not use the full command as I was down to one file just by looking for the
 
 -------------------------------------------------------------------------------------
 
---------## Bandit Level 6 → Level 7
+## Bandit Level 6 → Level 7
 
-**Challenge:** The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+**Challenge:** The password for the next level is stored somewhere on the server and has all of the following properties:
+
+owned by user bandit7
+owned by group bandit6
+33 bytes in size
 
 **Solution:**
 ```bash
-find . -type f -size 1033c
-cat ./maybehere07/.file2
+find / -type f -size 33c -user bandit7 -group bandit6 2>/dev/null
 ```
 
 **Explanation:** 
-`find .` tells system to find in the current directory
+`find ` tells system to find.
 `-type f` specifys it is finding a file
-`-size 1033c` specifys the size of file it is looking for
-`cat` command reads the file.
-`./` specifys it is reading a file from current directory
+`-size 33c` specifys the size of file it is looking for
+`-user` specifys the user its looking for
+`-group` specifys the group it is looking for
+`2>` send all the errors to...
+`/dev/null` this file is like a black hole contents of this file cannot be viewed. the error messages are redirected here.
 
 
-**What I learned:** `find` is a powerful comand that filters by multple properties.
-**Password:** HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+
+**What I learned:** In Linux there are 3 streams:
+0 - stdin(input)
+1 - Stdout(output)
+2 - stderr(error)
+**Password:** morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 7 → Level 8
+
+**Challenge:**The password for the next level is stored in the file data.txt next to the word millionth
+
+**Solution:**
+```bash
+grep millionth data.txt
+```
+
+**Explanation:** 
+`grep` filters through the file to look for the specified word
 
 
+
+**What I learned:** `grep` is key to look through large peices of data
+**Password:** dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 8 → Level 9
+
+**Challenge:** The password for the next level is stored in the file data.txt and is the only line of text that occurs only once
+
+**Solution:**
+```bash
+ sort data.txt | uniq -u
+```
+
+**Explanation:** 
+`sort` rranges lines of text in order
+`|` once sorted move the data to next command
+`uniq -u` filters for lines that only appear once.
+
+
+**What I learned:** `man` can be used to find more detai about the comand.
+**Password:** 4CKMh1JI91bUIZZPXDqGanal4xvAg0JM
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 9 → Level 10
+
+**Challenge:** The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
+
+**Solution:**
+```bash
+ string data.txt | grep "="
+```
+
+**Explanation:** 
+`strings` filterst out the human readable strings
+`|` once previous command executed, move the data to next command
+`grep` out of the few human readable commands the one starting with "=" is filtered out.
+
+
+**What I learned:** Sometimes it is easier to pair multiple commands together to run as one rather then running them seperately.
+**Password:** FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey
+
+-------------------------------------------------------------------------------------
+
+--------## Bandit Level 10 → Level 11
+
+**Challenge:** The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
+
+**Solution:**
+```bash
+ string data.txt | grep "="
+```
+
+**Explanation:** 
+`strings` filterst out the human readable strings
+`|` once previous command executed, move the data to next command
+`grep` out of the few human readable commands the one starting with "=" is filtered out.
+
+
+**What I learned:** Sometimes it is easier to pair multiple commands together to run as one rather then running them seperately.
+**Password:** FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey
