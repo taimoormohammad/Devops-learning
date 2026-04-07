@@ -222,20 +222,56 @@ grep millionth data.txt
 
 -------------------------------------------------------------------------------------
 
---------## Bandit Level 10 → Level 11
+## Bandit Level 10 → Level 11
 
-**Challenge:** The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
+**Challenge:** The password for the next level is stored in the file data.txt, which contains base64 encoded data.
 
 **Solution:**
 ```bash
- string data.txt | grep "="
+base64 -d data.txt
 ```
 
 **Explanation:** 
-`strings` filterst out the human readable strings
-`|` once previous command executed, move the data to next command
-`grep` out of the few human readable commands the one starting with "=" is filtered out.
+`base64 -d` this flag is used to decode base64
 
 
-**What I learned:** Sometimes it is easier to pair multiple commands together to run as one rather then running them seperately.
-**Password:** FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey
+**What I learned:** base64 is a binary to text encoding scheme. this helps it safely travel through systems that handle text only.
+**Password:** dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 11 → Level 12
+
+**Challenge:** The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
+
+**Solution:**
+```bash
+cat data.txt | tr "A-Za-z" "N-ZA-Mn-za-m"
+```
+
+**Explanation:** 
+`tr` translates characters from standard to given output.
+
+
+**What I learned:** `tr` command can be helpful in decoding cyphers.
+**Password:** 7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 12 → Level 13
+
+**Challenge:** The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in which you can work. Use mkdir with a hard to guess directory name. Or better, use the command “mktemp -d”. Then copy the datafile using cp, and rename it using mv (read the manpages!)
+
+**Solution:**
+```bash
+cat data.txt | tr "A-Za-z" "N-ZA-Mn-za-m"
+```
+
+**Explanation:** 
+`tr` translates characters from standard to given output.
+
+
+**What I learned:** `tr` command can be helpful in decoding cyphers.
+**Password:** 7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4
+
+
