@@ -264,14 +264,106 @@ cat data.txt | tr "A-Za-z" "N-ZA-Mn-za-m"
 
 **Solution:**
 ```bash
-cat data.txt | tr "A-Za-z" "N-ZA-Mn-za-m"
+xxd -r hexdump_data compressed_data
+mv compressed_data compressed_data.gz
+gzip -d compressed_data.gz
+mv compressed_data compressed_data.bz2
+bzip2 -d compressed_data.bz2
+mv compressed_data compressed_data.tar
+tar -xf compressed_data.tar
+
 ```
 
 **Explanation:** 
-`tr` translates characters from standard to given output.
+`xxd -r hexdump_data compressed_data` this command reverts from hexdump to normal file.
+`xxd` this command will be used repeated after any changes to the file. this will allow it to be in human readble form and let use see if the file hase been compressed using gzip, bzip2 or has been archived.
+
+If the file has been compressed using gzip, "1f8b" will be the first line of the file when `xxd` command is used.
+to decompress this file you must rename the file to end with ".gz" using this command:
+`mv compressed_data compressed_data.gz`
+Once the name has been changed run this command to decopress the data with this file:
+`gzip -d compressed_data.gz`
+
+If the file has been compressed using bzip2, "425A68" will be the first line of the file when `xxd` command is used.
+to decompress this file you must rename the file to end with ".bz2" using this command:
+`mv compressed_data compressed_data.bz2`
+Once the name has been changed run this command to decopress the data with this file:
+`bzip2 -d compressed_data.bz2`
+
+After multiple decompressions the file will eventually become a archive, which we must extract.
+If along the first line after rnning `xxd` you see a file names "data5.bin" thismens we need to extract the archived file.
+Using this comand you change the file name:
+`mv compressed_data compressed_data.tar`
+This command will be used to extract the archived file:
+`tar -xf compressed_data.tar`
+Once this command is used you will have a new file in your directory which has been extracted from the previous file.
+
+You must keep using the xxd command to see what file type you are at and apply the commands listed bove. eventualy after multiple decompressions and extractions you will be able to read the password for the next level.
 
 
-**What I learned:** `tr` command can be helpful in decoding cyphers.
-**Password:** 7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4
+
+**What I learned:** You can view a binary file in a human readable formart using hexdump.
+**Password:** FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 13 → Level 14
+
+**Challenge:** The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Look at the commands that logged you into previous bandit levels, and find out how to use the key for this level.
+
+**Solution:**
+```bash
+scp -P 2220 bandit13@bandit.labs.overthewire.org:/home/bandit13/sshkey.private .
+chmod 600 sshkey.private
+ssh -i sshkey.private  bandit14@bandit.labs.overthewire.org -p2220
+cat /etc/bandit_pass/bandit14
+
+```
+
+**Explanation:** 
+`scp -P 2220 bandit13@bandit.labs.overthewire.org:/home/bandit13/sshkey.private .` execute thei commmand from your local host to download the ssh key to the current directory.
+`chmod 600 sshkey.private` as to use the sshkey the group and others should have no permission use this comand.
+`ssh -i sshkey.private  bandit14@bandit.labs.overthewire.org -p2220` this will use the ssh key to ogin and should not ask for a password.
+`cat /etc/bandit_pass/bandit14` once in user bandit 14 this command can beviewed to see the password.
+
+
+**What I learned:** `scp` allows you to download files remotely if authenticated.
+**Password:** MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+
+-------------------------------------------------------------------------------------
+
+## Bandit Level 14 → Level 15
+
+**Challenge:**The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+
+**Solution:**
+```bash
+nc localhost 30000
+```
+
+**Explanation:** 
+`nc localhost 30000` opens a conection to that host and port
+
+
+**What I learned:** Just connecting to a port isn’t enough, you must send the correct input to get a response
+**Password:** 8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+
+-------------------------------------------------------------------------------------
+
+------## Bandit Level 15 → Level 16
+
+**Challenge:**The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+
+**Solution:**
+```bash
+nc localhost 30000
+```
+
+**Explanation:** 
+`nc localhost 30000` opens a conection to that host and port
+
+
+**What I learned:** Just connecting to a port isn’t enough, you must send the correct input to get a response
+**Password:** 8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
 
 
