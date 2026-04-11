@@ -1,1 +1,26 @@
+Combining Basics - 
+1. Creates a directory names 'Battlefield'
+2. Inside Battlefield, create files named knight.txt, sorcerer.txt, and rogue.txt.
+3. Check if knight.txt exists; if it does, move it to a new directory called Archive.
+4. List the contents of both Battlefield and Archive.
 
+Solution - 
+#!/bin/bash
+
+mkdir battlefield
+
+touch battlefield/knight.txt battlefield/sorcerer.txt battlefield/rouge.txt
+
+if [ -f "battlefield/knight.txt" ];then
+        echo "it exist and is going to Archive"
+        mkdir -p Archives
+        mv battlefield/knight.txt Archives/
+else
+        echo "knight.txt does not exist"
+fi
+echo "contents of battlefield"
+ls battlefield
+echo "contents of archives"
+ls Archives
+
+------------------------------------------------------------------------------------------------------
