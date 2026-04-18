@@ -379,7 +379,8 @@ Helpful note: Getting “DONE”, “RENEGOTIATING” or “KEYUPDATE”? Read t
 
 **Solution:**
 ```bash
-openssl s_client -connect localhost:30001
+nmap -sV localhost -p 31000-32000
+openssl s_client -connect localhost:31790
 ```
 
 **Explanation:** 
@@ -387,7 +388,7 @@ openssl s_client -connect localhost:30001
 `s_clint -connect localhost:30001` connects to the host.
 
 
-**What I learned:** Just connecting to a port isn’t enough, you must send the correct input to get a response
-**Password:** kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+**What I learned:** If you have a extra dash or missed a dash in your rsa key while copying it, the key will not work.
+**Password:** EReVavePLFHtFlFsjn3hyzMlvSuSAcRD
 
 
